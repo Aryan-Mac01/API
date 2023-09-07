@@ -5,23 +5,23 @@ const { connectToDb, getDb } = require('./db');
 const app = express();
 
 //dbConnection
-let db
+let db;
 
 connectToDb((err) => {
-    if (!err) {
-        app.listen(3000, () => {
-            console.log("app is listening on port 3000");
-        })
-        db=getDb()
+    if(!err){
+        app.listen(3000, ()=>{
+            console.log("App listening on port 3000")
+        });
+        db = getDb();
     }
-})
+});
 
 
 
 //routes
 app.get('/books', (req, res)=>{
 
-    let books = [];
+    let books = []
 
     db.collection('books')
         .find() // the find method return the cursor.
@@ -33,6 +33,7 @@ app.get('/books', (req, res)=>{
         .catch(() => {
             res.status(500).json({ error: "Not able to fetch the document" })
         })
+        return;
 
 
     res.json({mssg: "Welcome to the API"})
