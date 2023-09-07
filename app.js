@@ -5,16 +5,16 @@ const { connectToDb, getDb } = require('./db');
 const app = express();
 
 //dbConnection
-let db;
+let db
 
-connectToDb(() => {
-    if(!err){
-        app.listen(3000, ()=>{
-            console.log("App listening on port 3000")
-        });
-        db = getDb();
+connectToDb((err) => {
+    if (!err) {
+        app.listen(3000, () => {
+            console.log("app is listening on port 3000");
+        })
+        db=getDb()
     }
-});
+})
 
 
 
