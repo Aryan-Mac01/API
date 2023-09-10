@@ -23,11 +23,16 @@ connectToDb((err) => {
 //routes
 app.get('/books', (req, res)=>{
 
+    const page = req.query.p || 0 //if P doesnt have a value then the default value will be zero
+    const bookPerPage = 3
+
     let books = []
 
     db.collection('books')
         .find() // the find method return the cursor.
         .sort({ author: 1 })
+        .skip(page * bookPerPage)
+        .limit(bookPerPage)
         .forEach(book => books.push(book))
         .then(() => {
             res.status(200).json(books)
